@@ -1,0 +1,144 @@
+/* ==========================================================================
+   Variablat CSS & Tipografia
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px; /* Zhvendosje e saktë për shiritin lundrues (navbar) */
+}
+
+:root {
+    /* Paleta moderne, e frymëzuar nga natyra */
+    --clr-primary: #00A859;       /* E gjelbër vibrante shqiptare */
+    --clr-primary-dark: #007A41;
+    --clr-secondary: #0A2240;     /* Blu e thellë e Adriatikut */
+    --clr-accent: #FFC107;        /* E verdhë e ngrohtë diellore */
+
+    --bs-primary: var(--clr-primary);
+
+    /* Fontet e përdorura */
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    color: #333;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: var(--font-heading);
+}
+
+/* ==========================================================================
+   Klasat e Shërbimeve & Klasat e Personalizuara
+   ========================================================================== */
+.text-primary-custom {
+    color: var(--clr-primary) !important;
+}
+
+.bg-primary-custom {
+    background-color: var(--clr-primary) !important;
+}
+
+.tracking-wide {
+    letter-spacing: 0.1em;
+}
+
+.transition-all {
+    transition: all 0.3s ease-in-out;
+}
+
+.transition-colors {
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.hover-white:hover {
+    color: #fff !important;
+}
+
+.hover-primary:hover {
+    background-color: var(--clr-primary) !important;
+    color: #fff !important;
+    border-color: var(--clr-primary) !important;
+}
+
+.section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+@media (min-width: 992px) {
+    .section-padding {
+        padding-top: 4.5rem;
+        padding-bottom: 4.5rem;
+    }
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #fff, var(--clr-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Rezervë për shfletuesit që nuk mbështesin webkit */
+}
+
+.blur-3xl {
+    filter: blur(100px);
+}
+
+/* Butoni Kryesor i Personalizuar */
+.custom-btn {
+    background-color: var(--clr-primary);
+    border-color: var(--clr-primary);
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-btn:hover {
+    background-color: var(--clr-primary-dark);
+    border-color: var(--clr-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 168, 89, 0.2);
+}
+
+/* ==========================================================================
+   Shiriti Lundrues (Navbar)
+   ========================================================================== */
+.navbar {
+    padding: 1.5rem 0;
+    background-color: transparent;
+}
+
+.navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Gjendja fillestare e lidhjeve të navigimit mbi imazhin hero (janë të bardha) */
+.navbar-dark-initial .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 600;
+}
+.navbar-dark-initial .navbar-brand {
+    color: #fff !important;
+}
+.navbar-dark-initial .navbar-toggler i {
+    color: #fff !important;
+}
+
+/* Gjendja kur shfleton (scrolled) - lidhjet bëhen të errëta */
+.navbar.scrolled .nav-link {
+    color: var(--clr-secondary) !important;
+}
+.navbar.scrolled .nav-link:hover, .navbar.scrolled .nav-link.active {
+    color: var(--clr-primary) !important;
+}
+.navbar.scrolled .navbar-brand {
+    color: var(--clr-secondary) !important;
+}
+.navbar.scrolled .navbar-toggler i {
+    color: var(--clr-secondary) !important;
+}
