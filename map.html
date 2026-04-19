@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map - Albania Guides</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrapi -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!--  NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top transition-all" id="main-navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">
+            <span class="text-primary-custom">Albania</span>Guides
+        </a>
+
+        <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar">
+            <i class="bi bi-list fs-1 text-dark"></i>
+        </button>
+
+        <div class="offcanvas offcanvas-end" id="offcanvasNavbar">
+            <div class="offcanvas-header border-bottom">
+                <h5 class="fw-bold">
+                    <span class="text-primary-custom">Albania</span>Guides
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+
+            <div class="offcanvas-body justify-content-end">
+                <ul class="navbar-nav align-items-center gap-3 gap-lg-4">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="destinations.html">Destinations</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="map.html">Interactive Map</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#guides">Our Guides</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-4">
+                        <a class="btn btn-primary rounded-pill px-4 py-2 custom-btn"
+                            href="index.html#contact">Book Now</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- MAP SECTION -->
+<section class="py-6 section-padding" style="margin-top: 100px;">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h6 class="text-primary-custom fw-bold text-uppercase">Explore Activities</h6>
+            <h2 class="fw-bold">Interactive Map of Albania</h2>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Butonat -->
+            <div class="col-lg-4 d-flex flex-column gap-3">
+                <button class="btn btn-outline-primary activity-btn active" data-category="all">Show All</button>
+                <button class="btn btn-outline-primary activity-btn" data-category="hiking">Hiking</button>
+                <button class="btn btn-outline-primary activity-btn" data-category="beaches">Beaches</button>
+                <button class="btn btn-outline-primary activity-btn" data-category="history">History</button>
+                <button class="btn btn-outline-primary activity-btn" data-category="food">Food</button>
+            </div>
+
+            <!--  harta -->
+            <div class="col-lg-8">
+                <div id="albaniaMap"
+                    style="height: 500px; border-radius: 20px; border: 4px solid white;"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!--  SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
