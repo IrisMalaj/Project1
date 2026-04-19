@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Variablat CSS & Tipografia
-   ========================================================================== */
+/*Variablat CSS & Tipografia*/
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 90px; /* Zhvendosje e saktë për shiritin lundrues (navbar) */
@@ -30,9 +28,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     font-family: var(--font-heading);
 }
 
-/* ==========================================================================
-   Klasat e Shërbimeve & Klasat e Personalizuara
-   ========================================================================== */
+/*Klasat e Shërbimeve & Klasat e Personalizuara*/
 .text-primary-custom {
     color: var(--clr-primary) !important;
 }
@@ -102,9 +98,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     box-shadow: 0 10px 20px rgba(0, 168, 89, 0.2);
 }
 
-/* ==========================================================================
-   Shiriti Lundrues (Navbar)
-   ========================================================================== */
+/* Shiriti Lundrues (Navbar) */
 .navbar {
     padding: 1.5rem 0;
     background-color: transparent;
