@@ -1,0 +1,45 @@
+{% load static %}
+<!-- Footer -->
+<footer class="bg-black text-white py-5">
+    <div class="container">
+        <div class="row g-4 border-bottom border-dark pb-5 mb-4">
+            <div class="col-lg-4 col-md-6">
+                <a class="navbar-brand fw-bold fs-3 mb-3 d-inline-block text-white" href="{% url 'home' %}">
+                    <span class="text-primary-custom">Albania</span>Guides
+                </a>
+                <p class="text-white-50 mt-3">Connecting travelers with passionate local experts to uncover
+                    Albania's authentic beauty, hidden gems, and rich cultural soul.</p>
+            </div>
+            <div class="col-lg-2 col-md-6 offset-lg-2">
+                <h5 class="fw-bold mb-3">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'home' %}"
+                            class="text-white-50 text-decoration-none hover-white transition-colors">Home</a></li>
+                    <li class="mb-2"><a href="{% url 'destinations' %}"
+                            class="text-white-50 text-decoration-none hover-white transition-colors">Destinations</a>
+                    </li>
+                    <li class="mb-2"><a href="{% url 'home' %}#guides"
+                            class="text-white-50 text-decoration-none hover-white transition-colors">Find a
+                            Guide</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h5 class="fw-bold mb-3">Follow Us</h5>
+                <div class="d-flex gap-3">
+                    <a href="#" aria-label="Instagram"
+                        class="bg-dark text-white p-2 rounded-circle hover-primary transition-all d-flex align-items-center justify-content-center"
+                        style="width: 45px; height: 45px;"><i class="bi bi-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"
+                        class="bg-dark text-white p-2 rounded-circle hover-primary transition-all d-flex align-items-center justify-content-center"
+                        style="width: 45px; height: 45px;"><i class="bi bi-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"
+                        class="bg-dark text-white p-2 rounded-circle hover-primary transition-all d-flex align-items-center justify-content-center"
+                        style="width: 45px; height: 45px;"><i class="bi bi-twitter-x"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-white-50 small">
+            &copy; 2026 AlbaniaGuides. Created for Educational Purposes.
+        </div>
+    </div>
+</footer>
