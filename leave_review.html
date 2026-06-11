@@ -1,0 +1,564 @@
+{% extends 'tours/base.html' %}
+{% load static %}
+
+{% block title %}Leave a Guide Review - Albania Tour Guides{% endblock %}
+{% block meta_description %}Share your experience with Albania's best local tour guides. Your honest review helps fellow travelers discover authentic Albanian adventures.{% endblock %}
+
+{% block extra_head %}
+    <style>
+        /* ── Header ── */
+        .page-header {
+            background: linear-gradient(135deg, rgba(10,34,64,0.72), rgba(0,80,40,0.55)),
+            url('{% static "tours/images/review_header.png" %}') center center/cover no-repeat;
+            padding: 150px 0 90px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(to top, #f5faf7, transparent);
+            pointer-events: none;
+        }
+
+        .leave-review-page {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* ── Trust Bar ── */
+        .trust-bar {
+            position: relative;
+            z-index: 10;
+            margin-top: -42px;
+        }
+
+        .trust-item {
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .trust-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,168,89,0.1);
+        }
+
+        .trust-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0,168,89,0.1), rgba(0,168,89,0.05));
+            color: var(--clr-primary);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        /* ── Progress Steps ── */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 2.5rem;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #b0b8c4;
+            position: relative;
+        }
+
+        .progress-step.active {
+            color: var(--clr-primary);
+        }
+
+        .progress-step .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            background: #e9ecef;
+            color: #8a929c;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .step-number {
+            background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(0,168,89,0.3);
+        }
+
+        .step-connector {
+            width: 48px;
+            height: 2px;
+            background: #e9ecef;
+            margin: 0 0.5rem;
+        }
+
+        .step-connector.active {
+            background: linear-gradient(90deg, var(--clr-primary), #e9ecef);
+        }
+
+        /* ── Form Card ── */
+        .leave-review-card {
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 1.5rem !important;
+            background: #ffffff;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .leave-review-card:hover {
+            box-shadow: 0 20px 50px rgba(0, 168, 89, 0.06) !important;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--clr-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--clr-primary) !important;
+            box-shadow: 0 0 0 0.25rem rgba(0, 168, 89, 0.15) !important;
+        }
+
+        .form-control, .form-select {
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid #e2e8f0;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-control:hover, .form-select:hover {
+            border-color: #cbd5e1;
+        }
+
+        /* ── Success Alert ── */
+        .alert-success-moderation {
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            border: 1px solid #c8e6c9;
+            color: #2e7d32;
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        /* ── Submit Button ── */
+        .btn-submit-review {
+            background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit-review::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-submit-review:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0,168,89,0.3);
+            background: linear-gradient(135deg, var(--clr-primary-dark), var(--clr-primary));
+            color: #fff;
+        }
+
+        .btn-submit-review:hover::before {
+            left: 100%;
+        }
+
+        /* ── Sidebar Info ── */
+        .info-card {
+            background: linear-gradient(135deg, #f8fffe, #f0faf5);
+            border: 1px solid rgba(0,168,89,0.1);
+            border-radius: 1.25rem;
+        }
+
+        .info-card-dark {
+            background: linear-gradient(135deg, var(--clr-secondary), #0d2a4a);
+            color: #fff;
+            border-radius: 1.25rem;
+        }
+
+        .info-card-dark .text-muted {
+            color: rgba(255,255,255,0.6) !important;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+        /* ── Privacy note ── */
+        .privacy-note {
+            font-size: 0.8rem;
+            color: #8a929c;
+        }
+
+        .privacy-note i {
+            color: var(--clr-primary);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <header class="page-header text-center reveal-up">
+        <div class="container">
+            <h1 class="display-4 fw-bolder mb-3 text-white">
+                Share Your <span class="text-gradient">Experience</span>
+            </h1>
+            <p class="lead text-white-50 mx-auto" style="max-width: 640px;">
+                Your honest feedback helps fellow travelers find the best guides — and inspires our team to keep raising the bar.
+            </p>
+        </div>
+    </header>
+
+    <!-- Trust Signals Bar -->
+    <div class="trust-bar">
+        <div class="container">
+            <div class="row g-3 justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="trust-item rounded-4 shadow-sm p-3 d-flex align-items-center gap-3">
+                        <div class="trust-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold small" style="color: var(--clr-secondary);">Verified Reviews</div>
+                            <div class="text-muted" style="font-size: 0.78rem;">Every review is moderated for quality</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="trust-item rounded-4 shadow-sm p-3 d-flex align-items-center gap-3">
+                        <div class="trust-icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold small" style="color: var(--clr-secondary);">20+ Expert Guides</div>
+                            <div class="text-muted" style="font-size: 0.78rem;">Passionate locals ready to serve you</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="trust-item rounded-4 shadow-sm p-3 d-flex align-items-center gap-3">
+                        <div class="trust-icon">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold small" style="color: var(--clr-secondary);">Takes ~2 Minutes</div>
+                            <div class="text-muted" style="font-size: 0.78rem;">Quick and easy — no sign-up required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <section class="py-5" style="background: #f5faf7;">
+        <div class="container" style="padding-top: 2rem;">
+            <div class="row justify-content-center g-4">
+
+                <!-- Main Form Column -->
+                <div class="col-lg-7 col-md-10 animate-in animate-delay-1">
+
+                    <!-- Success Alert Message -->
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-success-moderation shadow-sm mb-4 border-0 d-flex align-items-start gap-3" role="alert">
+                            <div class="bg-success bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
+                                <i class="bi bi-check-circle-fill fs-4 text-success"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">Thank You! 🎉</h5>
+                                <p class="mb-0 small text-secondary">{{ message }}</p>
+                                <a href="{% url 'reviews' %}" class="btn btn-sm btn-outline-success rounded-pill mt-2 px-3">
+                                    <i class="bi bi-arrow-right me-1"></i> View All Reviews
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- Form Card -->
+                    <div class="card leave-review-card border-0 shadow-sm p-4 p-md-5">
+
+                        {% if guides_exist %}
+                            <!-- Progress Steps -->
+                            <div class="progress-steps">
+                                <div class="progress-step active">
+                                    <span class="step-number">1</span>
+                                    <span class="d-none d-sm-inline">Select Guide</span>
+                                </div>
+                                <div class="step-connector active"></div>
+                                <div class="progress-step active">
+                                    <span class="step-number">2</span>
+                                    <span class="d-none d-sm-inline">Your Details</span>
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="progress-step">
+                                    <span class="step-number">3</span>
+                                    <span class="d-none d-sm-inline">Write Review</span>
+                                </div>
+                            </div>
+
+                            <form method="POST" class="needs-validation" novalidate id="reviewForm">
+                                {% csrf_token %}
+                                
+                                <!-- Guide Selection -->
+                                <div class="mb-4">
+                                    <label for="{{ form.guide.id_for_label }}" class="form-label">
+                                        <i class="bi bi-person-badge text-primary-custom me-1"></i> Which guide did you travel with?
+                                    </label>
+                                    {{ form.guide }}
+                                    {% if form.guide.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.guide.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <hr class="my-4" style="border-color: #e9ecef;">
+
+                                <div class="row">
+                                    <!-- Reviewer Name -->
+                                    <div class="col-md-6 mb-4">
+                                        <label for="{{ form.reviewer_name.id_for_label }}" class="form-label">
+                                            <i class="bi bi-person text-primary-custom me-1"></i> Your Name
+                                        </label>
+                                        {{ form.reviewer_name }}
+                                        {% if form.reviewer_name.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.reviewer_name.errors.0 }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Reviewer Country -->
+                                    <div class="col-md-6 mb-4">
+                                        <label for="{{ form.reviewer_country.id_for_label }}" class="form-label">
+                                            <i class="bi bi-globe2 text-primary-custom me-1"></i> Your Country <span class="text-muted fw-normal">(Optional)</span>
+                                        </label>
+                                        {{ form.reviewer_country }}
+                                        {% if form.reviewer_country.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.reviewer_country.errors.0 }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <hr class="my-4" style="border-color: #e9ecef;">
+
+                                <!-- Rating Stars select -->
+                                <div class="mb-4">
+                                    <label for="{{ form.rating.id_for_label }}" class="form-label">
+                                        <i class="bi bi-star-fill text-primary-custom me-1"></i> How would you rate your experience?
+                                    </label>
+                                    {{ form.rating }}
+                                    {% if form.rating.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.rating.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Review Text -->
+                                <div class="mb-4">
+                                    <label for="{{ form.review_text.id_for_label }}" class="form-label">
+                                        <i class="bi bi-chat-left-text text-primary-custom me-1"></i> Tell us about your experience
+                                    </label>
+                                    {{ form.review_text }}
+                                    <div class="form-text small text-muted mt-1">
+                                        <i class="bi bi-lightbulb me-1"></i> Tip: Mention specific highlights, memorable moments, or what made your guide stand out.
+                                    </div>
+                                    {% if form.review_text.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.review_text.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-submit-review rounded-pill w-100 py-3 shadow-sm" id="submitReviewBtn">
+                                        <i class="bi bi-send-fill me-2"></i> Submit My Review
+                                    </button>
+                                    <p class="privacy-note text-center mt-3 mb-0">
+                                        <i class="bi bi-lock-fill me-1"></i> Your review will be published after a quick moderation check.
+                                    </p>
+                                </div>
+                            </form>
+                        {% else %}
+                            <!-- Fallback empty state if no guides exist in database -->
+                            <div class="text-center py-5">
+                                <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                                    <i class="bi bi-exclamation-triangle fs-1 text-warning"></i>
+                                </div>
+                                <h4 class="fw-bold mb-2">No Guides Available Yet</h4>
+                                <p class="text-muted mb-4 mx-auto" style="max-width: 360px;">You cannot submit a review because there are currently no guides registered in our system. Check back soon!</p>
+                                <a href="{% url 'home' %}" class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                                    <i class="bi bi-house me-1"></i> Back to Home
+                                </a>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4 col-md-10 animate-in animate-delay-2">
+
+                    <!-- Why Review Card -->
+                    <div class="info-card p-4 mb-4 shadow-sm">
+                        <h6 class="fw-bold mb-3" style="color: var(--clr-secondary);">
+                            <i class="bi bi-question-circle text-primary-custom me-2"></i>Why Leave a Review?
+                        </h6>
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex align-items-start gap-2 mb-3">
+                                <i class="bi bi-check-circle-fill text-primary-custom mt-1 flex-shrink-0"></i>
+                                <span class="small text-muted">Help fellow travelers make confident booking decisions</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-2 mb-3">
+                                <i class="bi bi-check-circle-fill text-primary-custom mt-1 flex-shrink-0"></i>
+                                <span class="small text-muted">Recognize and reward outstanding guides for their passion</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-2 mb-3">
+                                <i class="bi bi-check-circle-fill text-primary-custom mt-1 flex-shrink-0"></i>
+                                <span class="small text-muted">Contribute to Albania's growing tourism community</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-2">
+                                <i class="bi bi-check-circle-fill text-primary-custom mt-1 flex-shrink-0"></i>
+                                <span class="small text-muted">Your story inspires the next adventure</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Stats Card -->
+                    <div class="info-card-dark p-4 mb-4 shadow">
+                        <h6 class="fw-bold mb-4">
+                            <i class="bi bi-bar-chart-fill me-2" style="color: var(--clr-primary);"></i>Community at a Glance
+                        </h6>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="small" style="color: rgba(255,255,255,0.6);">Expert Guides</span>
+                            <span class="fw-bold">20+</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="small" style="color: rgba(255,255,255,0.6);">Average Rating</span>
+                            <span class="fw-bold"><i class="bi bi-star-fill" style="color: #FFC107;"></i> 4.9</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="small" style="color: rgba(255,255,255,0.6);">Destinations Covered</span>
+                            <span class="fw-bold">10+</span>
+                        </div>
+                    </div>
+
+                    <!-- Back Link -->
+                    <div class="text-center">
+                        <a href="{% url 'reviews' %}" class="text-decoration-none text-primary-custom fw-semibold small">
+                            <i class="bi bi-arrow-left me-1"></i> Read What Others Are Saying
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Interactive Progress Steps -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('reviewForm');
+            if (!form) return;
+
+            const steps = document.querySelectorAll('.progress-step');
+            const connectors = document.querySelectorAll('.step-connector');
+
+            // Map form fields to steps
+            const guideField = form.querySelector('[name="guide"]');
+            const nameField = form.querySelector('[name="reviewer_name"]');
+            const ratingField = form.querySelector('[name="rating"]');
+            const textField = form.querySelector('[name="review_text"]');
+
+            function updateProgress() {
+                const step1Done = guideField && guideField.value;
+                const step2Done = nameField && nameField.value.trim().length > 0;
+                const step3Active = ratingField && (ratingField.value || (textField && textField.value.trim().length > 0));
+
+                // Step 1 is always active
+                if (steps[0]) steps[0].classList.add('active');
+
+                // Step 2
+                if (step1Done) {
+                    if (steps[1]) steps[1].classList.add('active');
+                    if (connectors[0]) connectors[0].classList.add('active');
+                } else {
+                    if (steps[1]) steps[1].classList.remove('active');
+                    if (connectors[0]) connectors[0].classList.remove('active');
+                }
+
+                // Step 3
+                if (step1Done && step2Done) {
+                    if (steps[2]) steps[2].classList.add('active');
+                    if (connectors[1]) connectors[1].classList.add('active');
+                } else {
+                    if (steps[2]) steps[2].classList.remove('active');
+                    if (connectors[1]) connectors[1].classList.remove('active');
+                }
+            }
+
+            // Listen for changes
+            [guideField, nameField, ratingField, textField].forEach(field => {
+                if (field) {
+                    field.addEventListener('input', updateProgress);
+                    field.addEventListener('change', updateProgress);
+                }
+            });
+
+            // Initial check
+            updateProgress();
+        });
+    </script>
+{% endblock %}
