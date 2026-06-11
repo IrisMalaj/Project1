@@ -20,4 +20,7 @@ from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-]
+    path('', views.home, name='home'),
+    path('destinations/', views.destinations, name='destinations'),
+    path('reviews/', views.reviews, name='reviews'),
+    path('leave-review/', views.leave_review, name='leave_review'),

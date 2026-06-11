@@ -1,0 +1,70 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg fixed-top transition-all" id="main-navbar">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+            <span class="text-primary-custom">Albania</span>Guides
+        </a>
+
+        <button class="navbar-toggler shadow-none border-0" type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            aria-label="Toggle navigation">
+
+            <i class="bi bi-list fs-1 text-dark"></i>
+        </button>
+
+        <div class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+
+            <div class="offcanvas-header border-bottom">
+                <h5 class="offcanvas-title fw-bold" id="offcanvasNavbarLabel">
+                    <span class="text-primary-custom">Albania</span>Guides
+                </h5>
+
+                <button type="button"
+                    class="btn-close shadow-none"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close">
+                </button>
+            </div>
+
+            <div class="offcanvas-body justify-content-end">
+                <ul class="navbar-nav align-items-center gap-3 gap-lg-4">
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'destinations' %}active{% endif %}" href="{% url 'destinations' %}">Destinations</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#map">Interactive Map</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#guides">Our Guides</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'reviews' or request.resolver_match.url_name == 'leave_review' %}active{% endif %}" href="{% url 'reviews' %}">Reviews</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-4 mt-3 mt-lg-0">
+                        <a class="btn btn-primary rounded-pill px-4 py-2 custom-btn" 
+                           href="{% url 'destinations' %}#tours">
+                            Book Now
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>

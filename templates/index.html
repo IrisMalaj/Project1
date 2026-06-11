@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,91 +24,28 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <!-- CSS i perdorur nga ne -->
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{% static 'tours/css/style.css' %}">
 </head>
 
 <body tabindex="0">
 <!--pjesa e navbar -->
-<nav class="navbar navbar-expand-lg fixed-top transition-all" id="main-navbar">
-    <div class="container">
+{% include 'tours/navbar.html' %}
+    <!-- pjesa e hero -->
+    <header id="home" class="hero-section d-flex align-items-center min-vh-100 position-relative overflow-hidden">
 
-        <a class="navbar-brand fw-bold" href="#">
-            <span class="text-primary-custom">Albania</span>Guides
-        </a>
-
-        <button class="navbar-toggler shadow-none border-0" type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-            aria-label="Toggle navigation">
-
-            <i class="bi bi-list fs-1 text-dark"></i>
-        </button>
-
-        <div class="offcanvas offcanvas-end"
-            tabindex="-1"
-            id="offcanvasNavbar"
-            aria-labelledby="offcanvasNavbarLabel">
-
-            <div class="offcanvas-header border-bottom">
-                <h5 class="offcanvas-title fw-bold" id="offcanvasNavbarLabel">
-                    <span class="text-primary-custom">Albania</span>Guides
-                </h5>
-
-                <button type="button"
-                    class="btn-close shadow-none"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close">
-                </button>
-            </div>
-
-            <div class="offcanvas-body justify-content-end">
-                <ul class="navbar-nav align-items-center gap-3 gap-lg-4">
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                       
-                        <a class="nav-link" href="destinations.html">Destinations</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="map.html">Interactive Map</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#guides">Our Guides</a>
-                    </li>
-
-                    <li class="nav-item ms-lg-4 mt-3 mt-lg-0">
-                        <a class="btn btn-primary rounded-pill px-4 py-2 custom-btn" 
-                           href="destinations.html#tours">
-                            Book Now
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-
-        </div>
-    </div>
-</nav>
-
-    <!-- Hero Section -->
-    <header id="home" class="hero-section d-flex align-items-center position-relative overflow-hidden">
-        <!-- Container i videos te vendosur ne background-->
+        <!-- video background -->
         <div class="video-container">
-            <iframe
-                src="https://www.youtube.com/embed/YUU_MKTET_o?autoplay=1&mute=1&loop=1&playlist=YUU_MKTET_o&controls=0&showinfo=0&autohide=1&disablekb=1&modestbranding=1"
-                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-            </iframe>
-        </div>
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="{% static 'tours/assets/video/hero.mp4' %}" type="video/mp4">
+    </video>
+</div>
 
+        <!-- dark overlay -->
         <div class="hero-overlay"></div>
+
+        <!-- content -->
         <div class="container position-relative z-2">
-            <div class="row min-vh-100 align-items-center">
+            <div class="row align-items-center">
                 <div class="col-lg-8 col-md-10 text-white pt-5 reveal-up">
                     <span class="badge bg-primary-custom px-3 py-2 rounded-pill mb-3 text-uppercase tracking-wide">
                         <i class="bi bi-geo-alt-fill me-1"></i> Explore the Hidden Gem of Europe
@@ -120,20 +58,72 @@
                         Sea, find the perfect local guide for your unforgettable journey.
                     </p>
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="destinations.html" target="_blank" class="btn btn-primary btn-lg rounded-pill px-4 custom-btn">Explore
-                            Destinations</a>
+                        <a href="{% url 'destinations' %}" target="_blank" class="btn btn-primary btn-lg rounded-pill px-4 custom-btn">Explore Destinations</a>
                         <a href="#guides" class="btn btn-outline-light btn-lg rounded-pill px-4">Find a Guide</a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <a href="#destinations" class="scroll-down">
             <i class="bi bi-chevron-down text-white"></i>
         </a>
+
     </header>
 
-   <!-- destinatinacionet  -->
+    <!-- Stats Bar — Social Proof -->
+    <div class="stats-bar">
+        <div class="container">
+            <div class="row g-3 justify-content-center">
+                <div class="col-lg-3 col-md-6 col-6">
+                    <div class="stats-card rounded-4 shadow-lg p-4 text-center">
+                        <div class="d-flex align-items-center justify-content-center gap-3">
+                            <i class="bi bi-geo-alt-fill stats-icon"></i>
+                            <div>
+                                <div class="stats-number">10+</div>
+                                <div class="stats-label">Destinations</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <div class="stats-card rounded-4 shadow-lg p-4 text-center">
+                        <div class="d-flex align-items-center justify-content-center gap-3">
+                            <i class="bi bi-people-fill stats-icon"></i>
+                            <div>
+                                <div class="stats-number">20+</div>
+                                <div class="stats-label">Expert Guides</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <div class="stats-card rounded-4 shadow-lg p-4 text-center">
+                        <div class="d-flex align-items-center justify-content-center gap-3">
+                            <i class="bi bi-compass-fill stats-icon"></i>
+                            <div>
+                                <div class="stats-number">500+</div>
+                                <div class="stats-label">Tours Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <div class="stats-card rounded-4 shadow-lg p-4 text-center">
+                        <div class="d-flex align-items-center justify-content-center gap-3">
+                            <i class="bi bi-star-fill stats-icon"></i>
+                            <div>
+                                <div class="stats-number">4.9</div>
+                                <div class="stats-label">Avg. Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- destinatinacionet  -->
 <section id="destinations" class="py-6 section-padding bg-light">
     <div class="container reveal-up">
         <div class="text-center mb-5">
@@ -146,89 +136,37 @@
         </div>
 
         <div class="row g-4">
-
-            <!-- destinacioni 1 -->
+            {% for destination in destinations %}
             <div class="col-lg-3 col-md-6">
                 <div class="card destination-card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
                     <div class="card-img-wrapper position-relative">
-                        <img src="../static/images/tirane.jpg" alt="Tirana" class="dest-img">
+                        <img src="{% static destination.image_url %}" alt="{{ destination.name }}" class="dest-img">
                         <div class="card-badge position-absolute top-0 end-0 m-3 gap-2 d-flex">
-                            <span class="badge bg-light text-dark shadow-sm">City</span>
-                            <span class="badge bg-light text-dark shadow-sm">Culture</span>
+                            {% for tag in destination.category.split %}
+                            <span class="badge bg-light text-dark shadow-sm">{{ tag|cut:"," }}</span>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="card-body p-4 text-center">
-                        <h4 class="card-title fw-bold">Tirana</h4>
-                        <p class="card-text text-muted">
-                            The vibrant capital, known for its colorful architecture and lively café culture.
-                        </p>
+                        <h4 class="card-title fw-bold">{{ destination.name }}</h4>
+                        <p class="card-text text-muted">{{ destination.description }}</p>
                     </div>
                 </div>
             </div>
-
-            <!-- destinacioni 2 -->
-            <div class="col-lg-3 col-md-6">
-                <div class="card destination-card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
-                    <div class="card-img-wrapper position-relative">
-                        <img src="../static/images/albanian-alps.jpg" alt="Albanian Alps" class="dest-img">
-                        <div class="card-badge position-absolute top-0 end-0 m-3 gap-2 d-flex">
-                            <span class="badge bg-light text-dark shadow-sm">Hiking</span>
-                            <span class="badge bg-light text-dark shadow-sm">Nature</span>
-                        </div>
-                    </div>
-                    <div class="card-body p-4 text-center">
-                        <h4 class="card-title fw-bold">Albanian Alps</h4>
-                        <p class="card-text text-muted">
-                            Explore towering peaks, scenic valleys, and unforgettable hiking trails.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- destinacioni 3 -->
-            <div class="col-lg-3 col-md-6">
-                <div class="card destination-card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
-                    <div class="card-img-wrapper position-relative">
-                        <img src="../static/images/ioanian%20coast.jpg" alt="Albanian Riviera" class="dest-img">
-                        <div class="card-badge position-absolute top-0 end-0 m-3 gap-2 d-flex">
-                            <span class="badge bg-light text-dark shadow-sm">Nature</span>
-                            <span class="badge bg-light text-dark shadow-sm">Beaches</span>
-                        </div>
-                    </div>
-                    <div class="card-body p-4 text-center">
-                        <h4 class="card-title fw-bold">Albanian Riviera</h4>
-                        <p class="card-text text-muted">
-                            Crystal-clear waters, hidden coves, and vibrant coastal towns.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- destinacioni 4 -->
-            <div class="col-lg-3 col-md-6">
-                <div class="card destination-card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
-                    <div class="card-img-wrapper position-relative">
-                        <img src="../static/images/berat.webp" alt="Historical Albania" class="dest-img">
-                        <div class="card-badge position-absolute top-0 end-0 m-3 gap-2 d-flex">
-                            <span class="badge bg-light text-dark shadow-sm">History</span>
-                            <span class="badge bg-light text-dark shadow-sm">Culture</span>
-                        </div>
-                    </div>
-                    <div class="card-body p-4 text-center">
-                        <h4 class="card-title fw-bold">Historical Albania</h4>
-                        <p class="card-text text-muted">
-                            Discover ancient castles, UNESCO towns, and rich cultural heritage.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
     </div>
 </section>
 
+    <!-- Wave divider: light to cool -->
+    <div class="section-divider divider-cool" style="background: #f8f9fa;">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+            <path d="M0,60 C300,0 900,0 1200,60 L1200,60 L0,60 Z"></path>
+        </svg>
+    </div>
+
     <!-- darta e Shqiperise bashke me vendet te cilat ofrojne aktivitete -->
-    <section id="map" class="py-6 section-padding">
+    <section id="map" class="py-6 section-padding section-cool">
         <div class="container reveal-up">
             <div class="text-center mb-5">
                 <h6 class="text-primary-custom fw-bold text-uppercase tracking-wide">Explore Activities</h6>
@@ -278,8 +216,15 @@
         </div>
     </section>
 
+    <!-- Wave divider: cool to warm -->
+    <div class="section-divider divider-warm" style="background: #f5faf7;">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+            <path d="M0,0 C300,60 900,60 1200,0 L1200,60 L0,60 Z"></path>
+        </svg>
+    </div>
+
     <!-- guidat e agjencise -->
-    <section id="guides" class="py-6 section-padding">
+    <section id="guides" class="py-6 section-padding section-warm">
         <div class="container reveal-up">
             <div class="d-flex justify-content-between align-items-end mb-5 flex-wrap gap-3">
                 <div>
@@ -297,125 +242,53 @@
             </div>
 
             <div class="row g-4 pt-3">
-                <!-- personi i Pare i cili shoqeron turistet -->
-                <div class="col-xl-3 col-lg-4 col-md-6" data-guide="hiking">
+                {% for guide in guides %}
+                <div class="col-xl-3 col-lg-4 col-md-6" data-guide="{{ guide.category }}">
                     <div class="card guide-card border-0 rounded-4 shadow-sm h-100 text-center p-4">
                         <div class="guide-avatar position-relative mx-auto mb-3">
-                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=200"
-                                alt="Glen Sh." class="rounded-circle object-fit-cover shadow" width="120" height="120">
+                            <img src="{{ guide.avatar_url }}"
+                                alt="{{ guide.name }}" class="rounded-circle object-fit-cover shadow" width="120" height="120">
                             <span
                                 class="position-absolute bottom-0 end-0 bg-success border border-white border-2 rounded-circle p-2"
                                 title="Available"></span>
                         </div>
-                        <h5 class="fw-bold mb-1">Glen Sh.</h5>
-                        <p class="text-primary-custom mb-2 font-monospace small">History & Culture</p>
+                        <h5 class="fw-bold mb-1">{{ guide.name }}</h5>
+                        <p class="text-primary-custom mb-2 font-monospace small">{{ guide.specialty }}</p>
                         <div class="d-flex justify-content-center text-warning mb-3 small gap-1">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-fill"></i>
-                            <span class="text-muted ms-1">(48)</span>
+                            {% if guide.rating >= 1 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                            {% if guide.rating >= 2 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                            {% if guide.rating >= 3 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                            {% if guide.rating >= 4 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                            {% if guide.rating >= 5 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                            <span class="text-muted ms-1">({{ guide.review_count }})</span>
                         </div>
-                        <p class="text-muted small mb-4">Born in Berat, with an intimate knowledge of every neighborhood
-                            in the historic city.Specializes in multi-day hikes.</p>
+                        <p class="text-muted small mb-4">{{ guide.bio }}</p>
                         <div class="d-flex flex-wrap justify-content-center gap-1 mb-3">
-                            <span class="badge bg-light text-dark border">English</span>
-                            <span class="badge bg-light text-dark border">Italian</span>
-                            <span class="badge bg-light text-dark border">Albanian</span>
+                            {% if guide.languages %}
+                                {% for lang in guide.languages.split %}
+                                <span class="badge bg-light text-dark border">{{ lang|cut:"," }}</span>
+                                {% endfor %}
+                            {% else %}
+                                <span class="badge bg-light text-dark border">English</span>
+                                <span class="badge bg-light text-dark border">Albanian</span>
+                            {% endif %}
                         </div>
-                       
                     </div>
                 </div>
-
-                <!-- personi i dyte i cili shoqeron turistet-->
-                <div class="col-xl-3 col-lg-4 col-md-6" data-guide="history">
-                    <div class="card guide-card border-0 rounded-4 shadow-sm h-100 text-center p-4">
-                        <div class="guide-avatar position-relative mx-auto mb-3">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
-                                alt="Eglantina" class="rounded-circle object-fit-cover shadow" width="120" height="120">
-                            <span
-                                class="position-absolute bottom-0 end-0 bg-success border border-white border-2 rounded-circle p-2"
-                                title="Available"></span>
-                        </div>
-                        <h5 class="fw-bold mb-1">Eglantina K.</h5>
-                        <p class="text-primary-custom mb-2 font-monospace small">History & Hiking</p>
-                        <div class="d-flex justify-content-center text-warning mb-3 small gap-1">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-fill"></i>
-                            <span class="text-muted ms-1">(112)</span>
-                        </div>
-                        <p class="text-muted small mb-4">Expert in Ottoman architecture and communist history. Best for
-                            exploring Tirana, Berat, and Kruja.</p>
-                        <div class="d-flex flex-wrap justify-content-center gap-1 mb-3">
-                            <span class="badge bg-light text-dark border">English</span>
-                            <span class="badge bg-light text-dark border">German</span>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <!-- personi i trete i cili shoqeron turistet -->
-                <div class="col-xl-3 col-lg-4 col-md-6" data-guide="food">
-                    <div class="card guide-card border-0 rounded-4 shadow-sm h-100 text-center p-4">
-                        <div class="guide-avatar position-relative mx-auto mb-3">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
-                                alt="Bledi" class="rounded-circle object-fit-cover shadow" width="120" height="120">
-                            <span
-                                class="position-absolute bottom-0 end-0 bg-success border border-white border-2 rounded-circle p-2"
-                                title="Available"></span>
-                        </div>
-                        <h5 class="fw-bold mb-1">Bledi M.</h5>
-                        <p class="text-primary-custom mb-2 font-monospace small">Food & Wine</p>
-                        <div class="d-flex justify-content-center text-warning mb-3 small gap-1">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-half"></i>
-                            <span class="text-muted ms-1">(85)</span>
-                        </div>
-                        <p class="text-muted small mb-4">Discover Albania's rich culinary traditions. Agro-tourism and
-                            wine tasting tours around Permet and Vlora.</p>
-                        <div class="d-flex flex-wrap justify-content-center gap-1 mb-3">
-                            <span class="badge bg-light text-dark border">English</span>
-                            <span class="badge bg-light text-dark border">French</span>
-                        </div>
-                       
-                    </div>
-                </div>
-
-                <!-- personi i katert i cili shoqeron turistet -->
-                <div class="col-xl-3 col-lg-4 col-md-6" data-guide="beaches">
-                    <div class="card guide-card border-0 rounded-4 shadow-sm h-100 text-center p-4">
-                        <div class="guide-avatar position-relative mx-auto mb-3">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200"
-                                alt="Sara" class="rounded-circle object-fit-cover shadow" width="120" height="120">
-                            <span
-                                class="position-absolute bottom-0 end-0 bg-secondary border border-white border-2 rounded-circle p-2"
-                                title="Away"></span>
-                        </div>
-                        <h5 class="fw-bold mb-1">Sara V.</h5>
-                        <p class="text-primary-custom mb-2 font-monospace small">Coastal & Beaches</p>
-                        <div class="d-flex justify-content-center text-warning mb-3 small gap-1">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-fill"></i>
-                            <span class="text-muted ms-1">(203)</span>
-                        </div>
-                        <p class="text-muted small mb-4">Your go-to guide for the Albanian Riviera. Sailing trips,
-                            hidden coves, and historical castles along the coast.</p>
-                        <div class="d-flex flex-wrap justify-content-center gap-1 mb-3">
-                            <span class="badge bg-light text-dark border">English</span>
-                            <span class="badge bg-light text-dark border">Greek</span>
-                        </div>
-                        
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
         </div>
     </section>
 
+    <!-- Wave divider: warm to dark -->
+    <div class="section-divider divider-dark" style="background: #fafaf7;">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+            <path d="M0,60 C300,0 900,0 1200,60 L1200,60 L0,60 Z"></path>
+        </svg>
+    </div>
+
     <!-- Pjesa qe permban informacionet e kontakteve -->
-    <section id="contact" class="py-6 section-padding bg-dark text-white position-relative overflow-hidden">
+    <section id="contact" class="py-6 section-padding text-white position-relative overflow-hidden">
         <!-- Abstract background shapes -->
         <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden z-0 opacity-25">
             <div class="blob-shape bg-primary position-absolute rounded-circle blur-3xl"
@@ -520,8 +393,8 @@
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="#home"
                                 class="text-white-50 text-decoration-none hover-white transition-colors">Home</a></li>
-                        <li class="mb-2"><a href="destinations.html" target="_blank"
-                                            class="text-white-50 text-decoration-none hover-white transition-colors">Destinations</a>
+                        <li class="mb-2"><a href="{% url 'destinations' %}" target="_blank"
+                                class="text-white-50 text-decoration-none hover-white transition-colors">Destinations</a>
                         </li>
                         <li class="mb-2"><a href="#guides"
                                 class="text-white-50 text-decoration-none hover-white transition-colors">Find a
@@ -565,7 +438,7 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <!-- JS i krijuar nga ne -->
-    <script src="../static/js/main.js"></script>
+    <script src="{% static 'tours/js/main.js' %}"></script>
 </body>
 
 </html>

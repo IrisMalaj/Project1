@@ -1,0 +1,293 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews & Feedback - Albania Tour Guides</title>
+
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'tours/css/style.css' %}">
+
+    <style>
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+            url('{% static "tours/images/guide.jpg" %}') center center/cover no-repeat;
+            padding: 130px 0 70px 0;
+        }
+
+        .reviews-page {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .review-card {
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 1.25rem !important;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .review-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 168, 89, 0.08) !important;
+            border-color: rgba(0, 168, 89, 0.25) !important;
+        }
+
+        .filter-btn {
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--clr-primary) !important;
+            color: white !important;
+            border-color: var(--clr-primary) !important;
+            box-shadow: 0 4px 15px rgba(0, 168, 89, 0.2);
+        }
+
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .guide-thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--clr-primary);
+        }
+    </style>
+</head>
+
+<body tabindex="0" class="reviews-page">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top transition-all bg-white shadow-sm" id="main-navbar">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+                <span class="text-primary-custom">Albania</span>Guides
+            </a>
+            <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="bi bi-list fs-1 text-dark"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav align-items-center gap-3 gap-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'destinations' %}">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'reviews' %}">Reviews</a>
+                    </li>
+                    <li class="nav-item ms-lg-4 mt-3 mt-lg-0">
+                        <a class="btn btn-primary rounded-pill px-4 py-2 custom-btn" 
+                           href="{% url 'destinations' %}#tours">
+                            Book Now
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header text-center reveal-up">
+        <div class="container">
+            <h6 class="text-primary-custom fw-bold text-uppercase tracking-wide">
+                Traveler Feedback
+            </h6>
+            <h1 class="display-4 fw-bolder mb-3 text-white">
+                Customer Reviews
+            </h1>
+            <p class="lead text-white-50 mx-auto mb-4" style="max-width: 700px;">
+                Read authentic stories from travelers who have explored the beautiful peaks, historical sites, and sun-kissed beaches of Albania with our exceptional local guides.
+            </p>
+            <div class="mt-2">
+                <a href="{% url 'leave_review' %}" class="btn btn-primary rounded-pill px-4 py-2 custom-btn shadow">
+                    <i class="bi bi-chat-left-heart me-2"></i> Leave a Review
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            
+            <!-- Filters by Guide -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="text-center mb-3">
+                        <span class="text-uppercase tracking-wider small fw-bold text-muted">Filter Reviews by Guide</span>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <a href="{% url 'reviews' %}" class="btn btn-outline-secondary filter-btn {% if not selected_guide_id %}active{% endif %}">
+                            All Guides
+                        </a>
+                        {% for guide in guides %}
+                        <a href="{% url 'reviews' %}?guide={{ guide.id }}" class="btn btn-outline-secondary filter-btn {% if selected_guide_id == guide.id %}active{% endif %}">
+                            {{ guide.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div class="row g-4 justify-content-center">
+                {% if reviews %}
+                    {% for review in reviews %}
+                    <div class="col-lg-8 col-md-10">
+                        <div class="card review-card border-0 shadow-sm p-4">
+                            <div class="card-body p-0">
+                                
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        {% if review.guide.avatar_url %}
+                                        <img src="{{ review.guide.avatar_url }}" alt="{{ review.guide.name }}" class="guide-thumbnail shadow-sm">
+                                        {% else %}
+                                        <div class="guide-thumbnail d-flex align-items-center justify-content-center bg-primary-custom text-white fw-bold">
+                                            {{ review.guide.name|slice:":1" }}
+                                        </div>
+                                        {% endif %}
+                                        <div>
+                                            <h5 class="fw-bold mb-0 text-dark">{{ review.reviewer_name_display }}</h5>
+                                            <p class="text-muted mb-0 small">
+                                                {% if review.reviewer_country %}
+                                                <i class="bi bi-globe2 me-1"></i> {{ review.reviewer_country }}
+                                                {% else %}
+                                                Verified Traveler
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-light text-dark border px-2 py-1 mb-1 d-inline-block text-uppercase font-monospace" style="font-size: 0.75rem;">
+                                            Guide: {{ review.guide.name }}
+                                        </span>
+                                        <div class="small text-muted font-monospace" style="font-size: 0.8rem;">
+                                            {{ review.created_at|date:"M d, Y" }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Star rating -->
+                                <div class="text-warning mb-3 d-flex gap-1" style="font-size: 1.1rem;">
+                                    {% if review.rating >= 1 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                                    {% if review.rating >= 2 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                                    {% if review.rating >= 3 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                                    {% if review.rating >= 4 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                                    {% if review.rating >= 5 %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                                </div>
+
+                                <!-- Review comment -->
+                                <p class="card-text text-secondary lh-lg mb-0" style="font-size: 1.05rem; font-style: italic;">
+                                    "{{ review.review_text_display }}"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- Empty State -->
+                    <div class="col-lg-6">
+                        <div class="card border-0 rounded-4 shadow-sm bg-white p-5 text-center">
+                            <div class="empty-state">
+                                <span class="empty-icon text-primary-custom"><i class="bi bi-chat-left-heart"></i></span>
+                                <h3 class="fw-bold mb-2">No reviews yet.</h3>
+                                <p class="text-muted">There are no visible reviews registered for this guide selection at the moment.</p>
+                                <a href="{% url 'reviews' %}" class="btn btn-primary rounded-pill px-4 py-2 custom-btn mt-3">
+                                    View All Reviews
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-5">
+        <div class="container">
+            <div class="row g-4 border-bottom border-dark pb-5 mb-4">
+                <div class="col-lg-4 col-md-6">
+                    <a class="navbar-brand fw-bold fs-3 mb-3 d-inline-block text-white" href="{% url 'home' %}">
+                        <span class="text-primary-custom">Albania</span>Guides
+                    </a>
+                    <p class="text-white-50 mt-3">Connecting travelers with passionate local experts to uncover
+                        Albania’s authentic beauty, hidden gems, and rich cultural soul.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 offset-lg-2">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'home' %}"
+                                class="text-white-50 text-decoration-none hover-white transition-colors">Home</a></li>
+                        <li class="mb-2"><a href="{% url 'destinations' %}"
+                                class="text-white-50 text-decoration-none hover-white transition-colors">Destinations</a>
+                        </li>
+                        <li class="mb-2"><a href="{% url 'home' %}#guides"
+                                class="text-white-50 text-decoration-none hover-white transition-colors">Find a
+                                Guide</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold mb-3">Follow Us</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#"
+                            class="bg-dark text-white p-2 rounded-circle hover-primary transition-all d-flex align-items-center justify-content-center"
+                            style="width: 45px; height: 45px;"><i class="bi bi-instagram"></i></a>
+                        <a href="#"
+                            class="bg-dark text-white p-2 rounded-circle hover-primary transition-all d-flex align-items-center justify-content-center"
+                            style="width: 45px; height: 45px;"><i class="bi bi-facebook"></i></a>
+                        <a href="#"
+                            class="bg-dark text-white p-2 rounded-circle hover-primary transition-all d-flex align-items-center justify-content-center"
+                            style="width: 45px; height: 45px;"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-white-50 small">
+                &copy; 2026 AlbaniaGuides. Created for Educational Purposes.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmxc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'tours/js/main.js' %}"></script>
+</body>
+
+</html>

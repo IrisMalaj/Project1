@@ -1,19 +1,20 @@
-/*Variablat CSS & Tipografia*/
+/* ==========================================================================
+   CSS Variables & Typography
+   ========================================================================== */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px; /* Zhvendosje e saktë për shiritin lundrues (navbar) */
+    scroll-padding-top: 90px;
 }
 
 :root {
-    /* Paleta moderne, e frymëzuar nga natyra */
-    --clr-primary: #00A859;       /* E gjelbër vibrante shqiptare */
+    --clr-primary: #00A859;
     --clr-primary-dark: #007A41;
-    --clr-secondary: #0A2240;     /* Blu e thellë e Adriatikut */
-    --clr-accent: #FFC107;        /* E verdhë e ngrohtë diellore */
+    --clr-primary-light: #33c77a;
+    --clr-secondary: #0A2240;
+    --clr-accent: #FFC107;
 
     --bs-primary: var(--clr-primary);
 
-    /* Fontet e përdorura */
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Outfit', sans-serif;
 }
@@ -28,7 +29,9 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     font-family: var(--font-heading);
 }
 
-/*Klasat e Shërbimeve & Klasat e Personalizuara*/
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
 .text-primary-custom {
     color: var(--clr-primary) !important;
 }
@@ -71,19 +74,28 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     }
 }
 
+/* Section Background Tints — subtle warmth instead of plain white */
+.section-warm {
+    background-color: #fafaf7;
+}
+
+.section-cool {
+    background-color: #f5faf7;
+}
+
 .text-gradient {
     background: linear-gradient(90deg, #fff, var(--clr-primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    color: transparent; /* Rezervë për shfletuesit që nuk mbështesin webkit */
+    color: transparent;
 }
 
 .blur-3xl {
     filter: blur(100px);
 }
 
-/* Butoni Kryesor i Personalizuar */
+/* Buttons */
 .custom-btn {
     background-color: var(--clr-primary);
     border-color: var(--clr-primary);
@@ -98,83 +110,134 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     box-shadow: 0 10px 20px rgba(0, 168, 89, 0.2);
 }
 
-/* Shiriti Lundrues (Navbar) */
+/* ==========================================================================
+   Navbar — Glassmorphism Effect
+   ========================================================================== */
 .navbar {
     padding: 1.5rem 0;
     background-color: transparent;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Glass effect when at top (over hero video) */
+.navbar-dark-initial {
+    background: rgba(10, 34, 64, 0.15) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     padding: 0.8rem 0;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Gjendja fillestare e lidhjeve të navigimit mbi imazhin hero (janë të bardha) */
 .navbar-dark-initial .nav-link {
     color: rgba(255, 255, 255, 0.9) !important;
     font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
 .navbar-dark-initial .navbar-brand {
     color: #fff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
 .navbar-dark-initial .navbar-toggler i {
     color: #fff !important;
 }
 
-/* Gjendja kur shfleton (scrolled) - lidhjet bëhen të errëta */
 .navbar.scrolled .nav-link {
     color: var(--clr-secondary) !important;
+    text-shadow: none;
 }
-.navbar.scrolled .nav-link:hover, .navbar.scrolled .nav-link.active {
+
+.navbar.scrolled .nav-link:hover,
+.navbar.scrolled .nav-link.active {
     color: var(--clr-primary) !important;
-}
-.navbar.scrolled .navbar-brand {
-    color: var(--clr-secondary) !important;
-}
-.navbar.scrolled .navbar-toggler i {
-    color: var(--clr-secondary) !important;
 }
 
 /* ==========================================================================
-   Hero Section
+   HERO SECTION — Premium Animated Overlay
    ========================================================================== */
+
 .hero-section {
     position: relative;
-    background-color: #0d1b2a; /* Fallback dark background */
+    overflow: hidden;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #0d1b2a;
 }
 
+/* VIDEO CONTAINER */
 .video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.bg-video {
     position: absolute;
     top: 50%;
     left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
     transform: translate(-50%, -50%);
-    width: 100%;
-    height: 56.25vw; /* 16:9 aspect ratio */
-    min-height: 100vh;
-    min-width: 177.77vh; /* Minimum width to fill 100vh maintaining 16:9 */
-    z-index: 0;
-    pointer-events: none; /* Allows clicking through the video */
+    object-fit: cover;
 }
 
-.video-container iframe {
+/* Animated gradient overlay */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        135deg,
+        rgba(10, 34, 64, 0.8) 0%,
+        rgba(0, 80, 40, 0.5) 50%,
+        rgba(10, 34, 64, 0.7) 100%
+    );
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Decorative particles/light effect on hero */
+.hero-section::after {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(0, 168, 89, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
     pointer-events: none;
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(10, 34, 64, 0.7) 0%, rgba(0, 50, 20, 0.5) 100%);
-    z-index: 1;
+/* CONTENT ABOVE VIDEO */
+.hero-section > .container {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-title {
@@ -182,7 +245,17 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     letter-spacing: -1px;
 }
 
-/* Bounce scroll indicator */
+/* Hero badge glow */
+.hero-section .badge {
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 168, 89, 0.4); }
+    50% { box-shadow: 0 0 20px 5px rgba(0, 168, 89, 0.15); }
+}
+
+/* Scroll arrow */
 .scroll-down {
     position: absolute;
     bottom: 30px;
@@ -192,60 +265,208 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     animation: bounce 2s infinite;
     z-index: 2;
     text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.scroll-down:hover {
+    opacity: 1;
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-    40% { transform: translateY(-20px) translateX(-50%); }
-    60% { transform: translateY(-10px) translateX(-50%); }
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    40% {
+        transform: translateY(-20px) translateX(-50%);
+    }
+    60% {
+        transform: translateY(-10px) translateX(-50%);
+    }
 }
 
 /* ==========================================================================
-   Components (Cards, Guides)
+   Stats Bar — Social Proof
+   ========================================================================== */
+.stats-bar {
+    position: relative;
+    z-index: 10;
+    margin-top: -50px;
+}
+
+.stats-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-4px);
+}
+
+.stats-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+}
+
+.stats-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.stats-icon {
+    font-size: 1.6rem;
+    color: var(--clr-primary);
+    opacity: 0.6;
+}
+
+/* ==========================================================================
+   Section Dividers — Wave Shapes
+   ========================================================================== */
+.section-divider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.section-divider svg {
+    display: block;
+    width: 100%;
+    height: 60px;
+}
+
+.section-divider.divider-light svg {
+    fill: #f8f9fa;
+}
+
+.section-divider.divider-white svg {
+    fill: #ffffff;
+}
+
+.section-divider.divider-warm svg {
+    fill: #fafaf7;
+}
+
+.section-divider.divider-cool svg {
+    fill: #f5faf7;
+}
+
+.section-divider.divider-dark svg {
+    fill: #1a1a2e;
+}
+
+/* ==========================================================================
+   Destination Cards — Premium with Gradient Overlay
    ========================================================================== */
 .destination-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+    border-radius: 1rem !important;
 }
 
 .destination-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+.card-img-wrapper {
+    overflow: hidden;
+}
+
+/* Bottom gradient on card images for depth */
+.card-img-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.15), transparent);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.destination-card:hover .card-img-wrapper::after {
+    opacity: 1;
 }
 
 .dest-img {
     height: 250px;
     width: 100%;
     object-fit: cover;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .destination-card:hover .dest-img {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
+.destination-card .card-body {
+    transition: background-color 0.3s ease;
+}
+
+/* ==========================================================================
+   Guide Cards — Premium with Hover Glow
+   ========================================================================== */
 .guide-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle gradient border effect on hover */
+.guide-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--clr-primary), #00d4aa, var(--clr-primary-dark));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .guide-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 168, 89, 0.15) !important;
+}
+
+.guide-card:hover::before {
+    opacity: 1;
 }
 
 .guide-avatar img {
     border: 4px solid #fff;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.guide-card:hover .guide-avatar img {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 168, 89, 0.2);
 }
 
 /* ==========================================================================
-   Animations
+   Staggered Reveal Animations
    ========================================================================== */
-/* Simple fade up reveal */
 .reveal-up {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease-out;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .reveal-up.active {
@@ -253,41 +474,121 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     transform: translateY(0);
 }
 
+/* Stagger children cards */
+.reveal-up.active .col-lg-3:nth-child(1),
+.reveal-up.active .col-xl-3:nth-child(1) {
+    animation: fadeSlideUp 0.6s ease-out 0.1s both;
+}
+
+.reveal-up.active .col-lg-3:nth-child(2),
+.reveal-up.active .col-xl-3:nth-child(2) {
+    animation: fadeSlideUp 0.6s ease-out 0.25s both;
+}
+
+.reveal-up.active .col-lg-3:nth-child(3),
+.reveal-up.active .col-xl-3:nth-child(3) {
+    animation: fadeSlideUp 0.6s ease-out 0.4s both;
+}
+
+.reveal-up.active .col-lg-3:nth-child(4),
+.reveal-up.active .col-xl-3:nth-child(4) {
+    animation: fadeSlideUp 0.6s ease-out 0.55s both;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 /* ==========================================================================
-   Form Styling
+   Contact Section — Enhanced
    ========================================================================== */
-.form-control:focus, .form-select:focus {
+#contact {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1a1a2e 50%, #0d1b2a 100%);
+}
+
+#contact .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#contact .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+.form-control:focus,
+.form-select:focus {
     border-color: var(--clr-primary);
     box-shadow: 0 0 0 0.25rem rgba(0, 168, 89, 0.25);
 }
 
 /* ==========================================================================
-   Interactive Map
+   Map
    ========================================================================== */
 .activity-btn {
     transition: all 0.3s ease;
     border-radius: 12px;
 }
 
-.activity-btn:hover, .activity-btn.active {
+.activity-btn:hover,
+.activity-btn.active {
     background-color: var(--clr-primary);
     color: white !important;
     border-color: var(--clr-primary);
     transform: translateX(10px);
 }
 
-.leaflet-popup-content-wrapper {
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+/* ==========================================================================
+   Footer — Enhanced Depth
+   ========================================================================== */
+footer {
+    background: linear-gradient(180deg, #0a0a0a 0%, #111 100%) !important;
+    position: relative;
+    overflow: hidden;
 }
 
-.leaflet-popup-content h6 {
-    color: var(--clr-primary);
-    margin-bottom: 2px;
-    font-family: var(--font-heading);
-    font-weight: bold;
+/* Decorative glow in footer */
+footer::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 200px;
+    background: radial-gradient(ellipse, rgba(0, 168, 89, 0.08), transparent 70%);
+    pointer-events: none;
 }
-.leaflet-popup-content p {
-    margin: 0;
-    color: #666;
+
+footer .bi {
+    transition: transform 0.3s ease;
+}
+
+footer a:hover .bi {
+    transform: scale(1.2);
+}
+
+/* Social icon hover */
+footer a[style*="45px"] {
+    transition: all 0.3s ease !important;
+}
+
+footer a[style*="45px"]:hover {
+    background-color: var(--clr-primary) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 168, 89, 0.3);
 }
