@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Destination, Guide, Review
+from .models import Destination, Guide, Review, Itinerary, ItineraryDay
 
 @admin.register(Destination)
 class DestinationAdmin(admin.ModelAdmin):
@@ -23,3 +23,16 @@ class ReviewAdmin(admin.ModelAdmin):
     def reviewer_name_display(self, obj):
         return obj.reviewer_name or obj.user_name or "Anonymous"
     reviewer_name_display.short_description = 'Reviewer Name'
+
+class ItineraryDayInline(admin.TabularInline):
+    model = ItineraryDay
+    extra = 1
+    ordering = ['day_number']
+
+@admin.register(Itinerary)
+class ItineraryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'price', 'is_active', 'created_at')
+    list_filter = ('is_active',)
+    search_fields = ('title', 'subtitle')
+    inlines = [ItineraryDayInline]
+
